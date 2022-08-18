@@ -1,0 +1,19 @@
+{
+    "version": "1.0",
+    "defaultSchema": "SALES",
+    "schemas": [
+        {
+            "name": "SALES",
+            "type": "custom",
+            "factory": "com.github.pioneeryi.CsvSchemaFactory",
+            "operand": {},
+            "tables": [
+                {
+                    "name": "DEPTS_VIEW",
+                    "type": "view",
+                    "sql": "SELECT * FROM depts"
+                }
+            ]
+        }
+    ]
+}

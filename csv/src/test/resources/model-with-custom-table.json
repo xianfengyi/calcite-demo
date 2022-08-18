@@ -1,0 +1,17 @@
+{
+    "version": "1.0",
+    "defaultSchema": "CUSTOM_TABLE",
+    "schemas": [
+        {
+            "name": "CUSTOM_TABLE",
+            "tables": [
+                {
+                    "name": "DEPTS",
+                    "type": "custom",
+                    "factory": "com.github.pioneeryi.CsvTableFactory",
+                    "operand": {}
+                }
+            ]
+        }
+    ]
+}

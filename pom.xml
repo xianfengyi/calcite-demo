@@ -13,6 +13,7 @@
 
     <modules>
         <module>helloworld</module>
+        <module>csv</module>
     </modules>
 
     <properties>

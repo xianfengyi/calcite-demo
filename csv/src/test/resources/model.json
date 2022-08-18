@@ -1,0 +1,12 @@
+{
+    "version": "1.0",
+    "defaultSchema": "SALES",
+    "schemas": [
+        {
+            "name": "SALES",
+            "type": "custom",
+            "factory": "com.github.pioneeryi.CsvSchemaFactory",
+            "operand": {}
+        }
+    ]
+}
