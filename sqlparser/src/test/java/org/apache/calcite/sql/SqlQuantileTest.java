@@ -43,7 +43,7 @@ public class SqlQuantileTest {
 
     @Test
     public void testSqlQuantile_normal() {
-        String sql = "select xxx(id) from test";
+        String sql = "select * from test";
 
         final FrameworkConfig config = Frameworks.newConfigBuilder()
                 .parserConfig(SqlParser.configBuilder()
