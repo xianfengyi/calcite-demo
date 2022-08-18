@@ -14,19 +14,22 @@
     <modules>
         <module>helloworld</module>
         <module>csv</module>
+        <module>sqlparser</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <calcite.version>1.19.0</calcite.version>
+        <avatica.version>1.6.0</avatica.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.calcite</groupId>
             <artifactId>calcite-core</artifactId>
-            <version>1.22.0</version>
+            <version>${calcite.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.calcite.avatica</groupId>
