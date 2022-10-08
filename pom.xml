@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.calcite.avatica</groupId>
-            <artifactId>avatica</artifactId>
+            <artifactId>avatica-core</artifactId>
             <version>1.16.0</version>
         </dependency>
 
