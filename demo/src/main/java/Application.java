@@ -1,13 +1,17 @@
+import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.enumerable.EnumerableConvention;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
 import org.apache.calcite.adapter.enumerable.EnumerableRel;
 import org.apache.calcite.adapter.enumerable.EnumerableRules;
+import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.avatica.util.Quoting;
 import org.apache.calcite.config.CalciteConnectionConfig;
 import org.apache.calcite.jdbc.CalciteSchema;
+import org.apache.calcite.jdbc.JavaTypeFactoryImpl;
 import org.apache.calcite.linq4j.Enumerable;
 import org.apache.calcite.linq4j.Enumerator;
+import org.apache.calcite.linq4j.QueryProvider;
 import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.plan.hep.HepPlanner;
 import org.apache.calcite.plan.hep.HepProgramBuilder;
@@ -18,6 +22,7 @@ import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeFactory;
 import org.apache.calcite.rel.type.RelDataTypeSystem;
 import org.apache.calcite.runtime.Bindable;
+import org.apache.calcite.schema.SchemaPlus;
 import org.apache.calcite.schema.impl.AbstractTable;
 import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
@@ -29,6 +34,7 @@ import org.apache.calcite.sql.type.SqlTypeFactoryImpl;
 import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.sql.validate.SqlConformanceEnum;
 import org.apache.calcite.tools.*;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -46,10 +52,14 @@ public class Application {
     private static SqlTypeFactoryImpl typeFactory = new SqlTypeFactoryImpl(RelDataTypeSystem.DEFAULT);
     private static RelDataTypeSystem typeSystem = RelDataTypeSystem.DEFAULT;
 
+    private static Planner planner;
+
     public static void main(String[] args) {
         String sql =
                 "SELECT u.id, name, age, sum(price) " + "FROM users AS u join orders AS o ON u.id = o.user_id " +
                         "WHERE age >= 20 AND age <= 30 " + "GROUP BY u.id, name, age " + "ORDER BY u.id";
+
+        planner = Frameworks.getPlanner(getFrameworkConfig());
 
         // 将 SQL 转换为 SQLNode
         SqlNode originSqlNode = sqlParse(sql);
@@ -62,15 +72,14 @@ public class Application {
         System.out.println(RelOptUtil.toString(relRoot.rel, ALL_ATTRIBUTES));
 
         // 对查询进行优化
-        RelNode optimizedRelNode = optimize(relRoot.rel);
+        //RelNode optimizedRelNode = optimize(relRoot.rel);
 
-        // 执行计划
-        execute(optimizedRelNode);
+        // 执行
+        execute(relRoot.rel);
     }
 
     private static SqlNode sqlParse(String sql) {
         try {
-            Planner planner = Frameworks.getPlanner(getFrameworkConfig());
             return planner.parse(sql);
         } catch (SqlParseException e) {
             throw new RuntimeException(e);
@@ -79,7 +88,6 @@ public class Application {
 
     private static SqlNode validateSql(SqlNode sqlNode) {
         try {
-            Planner planner = Frameworks.getPlanner(getFrameworkConfig());
             // 执行SQL验证
             return planner.validate(sqlNode);
         } catch (ValidationException e) {
@@ -89,7 +97,6 @@ public class Application {
 
     private static RelRoot toRelNode(SqlNode sqlNode) {
         try {
-            Planner planner = Frameworks.getPlanner(getFrameworkConfig());
             // 执行SQL验证
             return planner.rel(sqlNode);
         } catch (RelConversionException e) {
@@ -117,32 +124,52 @@ public class Application {
     }
 
     private static void execute(RelNode optimizerRelTree) {
-        //EnumerableRel enumerable = (EnumerableRel) optimizerRelTree;
-        //Map<String, Object> internalParameters = new LinkedHashMap<>();
-        //EnumerableRel.Prefer prefer = EnumerableRel.Prefer.ARRAY;
-        //Bindable bindable = EnumerableInterpretable.toBindable(internalParameters, null, enumerable, prefer);
-        //Enumerable bind = bindable.bind(new SimpleDataContext(rootSchema.plus()));
-        //Enumerator enumerator = bind.enumerator();
-        //while (enumerator.moveNext()) {
-        //    Object current = enumerator.current();
-        //    Object[] values = (Object[]) current;
-        //    StringBuilder sb = new StringBuilder();
-        //    for (Object v : values) {
-        //        sb.append(v).append(",");
-        //    }
-        //    sb.setLength(sb.length() - 1);
-        //    System.out.println(sb);
-        //}
+        EnumerableRel enumerable = (EnumerableRel) optimizerRelTree;
+        Map<String, Object> internalParameters = new LinkedHashMap<>();
+        EnumerableRel.Prefer prefer = EnumerableRel.Prefer.ARRAY;
+        Bindable bindable = EnumerableInterpretable.toBindable(internalParameters, null, enumerable, prefer);
+        Enumerable bind = bindable.bind(new DataContext() {
+            @Override
+            public @Nullable SchemaPlus getRootSchema() {
+                return getCalciteRootSchema().plus();
+            }
+
+            @Override
+            public JavaTypeFactory getTypeFactory() {
+                return new JavaTypeFactoryImpl();
+            }
+
+            @Override
+            public QueryProvider getQueryProvider() {
+                return null;
+            }
+
+            @Override
+            public @Nullable Object get(String s) {
+                return null;
+            }
+        });
+        Enumerator enumerator = bind.enumerator();
+        while (enumerator.moveNext()) {
+            Object current = enumerator.current();
+            Object[] values = (Object[]) current;
+            StringBuilder sb = new StringBuilder();
+            for (Object v : values) {
+                sb.append(v).append(",");
+            }
+            sb.setLength(sb.length() - 1);
+            System.out.println(sb);
+        }
     }
 
     private static FrameworkConfig getFrameworkConfig() {
-        return Frameworks.newConfigBuilder().defaultSchema(getRootSchema().plus())
+        return Frameworks.newConfigBuilder().defaultSchema(getCalciteRootSchema().plus())
                 .parserConfig(sqlParserConfig)
                 .operatorTable(SqlStdOperatorTable.instance())
                 .build();
     }
 
-    private static CalciteSchema getRootSchema() {
+    private static CalciteSchema getCalciteRootSchema() {
         CalciteSchema rootSchema = CalciteSchema.createRootSchema(false, false);
         rootSchema.add("users", new AbstractTable() {
             @Override
