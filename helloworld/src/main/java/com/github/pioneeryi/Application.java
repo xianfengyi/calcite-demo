@@ -19,7 +19,6 @@ public class Application {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from T_TEST_TABLE");
             while (resultSet.next()) {
-                System.out.println("data => ");
                 System.out.println(resultSet.getObject("value"));
             }
         } catch (Exception e) {

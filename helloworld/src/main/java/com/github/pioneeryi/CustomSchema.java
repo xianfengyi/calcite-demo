@@ -14,7 +14,7 @@ public class CustomSchema extends AbstractSchema {
 
     @Override
     protected Map<String, Table> getTableMap() {
-        URL url = CustomSchema.class.getResource("/data.csv");
+        URL url = CustomSchema.class.getResource("/data.txt");
         Source source = Sources.of(url);
         if (tableMap == null) {
             final ImmutableMap.Builder<String, Table> builder = ImmutableMap.builder();
