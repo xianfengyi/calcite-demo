@@ -3,7 +3,10 @@ package com.github.pioneeryi;
 import com.github.pioneeryi.table.CsvScannableTable;
 import com.google.common.collect.ImmutableMap;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.calcite.schema.Schema;
 import org.apache.calcite.schema.Table;
 import org.apache.calcite.schema.impl.AbstractSchema;
 import org.apache.calcite.util.Source;
