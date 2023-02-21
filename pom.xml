@@ -17,6 +17,7 @@
         <module>calcite-adapter/adapter-csv</module>
         <module>calcite-execute</module>
         <module>calcite-adapter/adapter-helloworld</module>
+        <module>calcite-optimize</module>
     </modules>
 
     <properties>
