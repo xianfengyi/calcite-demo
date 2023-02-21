@@ -40,6 +40,16 @@ public class ScannableTableTest {
     }
 
     @Test
+    public void testSelectWhere() {
+        String sql = "select a.NAME,a.GENDER,a.AGE from depts as a where name='Alice'";
+
+        String expected = "NAME, GENDER, AGE\n" +
+                "Alice, F, 13\n";
+        String result = executeSql(sql);
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
     public void testSelectLimit() {
         String sql = "select a.NAME,a.GENDER,a.AGE from depts as a limit 2";
 
@@ -49,6 +59,19 @@ public class ScannableTableTest {
         String result = executeSql(sql);
         Assert.assertEquals(expected, result);
     }
+
+    @Test
+    public void testSelectComplex() {
+        String sql = "select a.NAME,sum(a.AGE) from depts where gender='F' ";
+
+        String expected = "NAME, GENDER, AGE\n"
+                + "Fred, , 25\n"
+                + "Eric, M, 80\n";
+        String result = executeSql(sql);
+        Assert.assertEquals(expected, result);
+    }
+
+
 
     private String executeSql(String sql) {
         String path = ScannableTableTest.class.getResource("/model.json").toString();
