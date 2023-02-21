@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.pioneeryi</groupId>
@@ -13,21 +13,24 @@
 
     <modules>
         <module>helloworld</module>
-        <module>csv</module>
+        <module>demo</module>
         <module>sqlparser</module>
         <module>calcite-parser</module>
         <module>calcite-parser/fmpp-demo</module>
         <module>calcite-parser/javacc-demo</module>
         <module>calcite-parser/parser-demo</module>
         <module>calcite-parser/custom-demo</module>
+        <module>calcite-adapter</module>
+        <module>calcite-adapter/adapter-csv</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <calcite.version>1.19.0</calcite.version>
-        <avatica.version>1.16.0</avatica.version>
+
+        <calcite.version>1.32.0</calcite.version>
+        <avatica.version>1.22.0</avatica.version>
     </properties>
 
     <dependencies>
@@ -38,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.calcite.avatica</groupId>
-            <artifactId>avatica</artifactId>
+            <artifactId>avatica-core</artifactId>
             <version>${avatica.version}</version>
         </dependency>
 
