@@ -81,4 +81,6 @@ LogicalSort(sort0=[$0], dir0=[ASC]): rowcount = 37.5, cumulative cost = {1055.15
           LogicalTableScan(table=[[users]]): rowcount = 100.0, cumulative cost = {100.0 rows, 101.0 cpu, 0.0 io}, id = 13
         LogicalTableScan(table=[[orders]]): rowcount = 100.0, cumulative cost = {100.0 rows, 101.0 cpu, 0.0 io}, id = 14
 ```
-可以看到，过滤条件已经下推到join下面，这样就达到了优化的效果
+可以看到，过滤条件已经下推到join下面，这样就达到了优化的效果.
+
+完整的示例，可以看本module的Demo！
