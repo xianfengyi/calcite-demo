@@ -15,6 +15,7 @@
         <module>helloworld</module>
         <module>csv</module>
         <module>demo</module>
+        <module>sqlparser</module>
     </modules>
 
     <properties>
