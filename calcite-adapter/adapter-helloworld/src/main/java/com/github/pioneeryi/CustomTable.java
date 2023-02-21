@@ -1,7 +1,5 @@
 package com.github.pioneeryi;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.linq4j.AbstractEnumerable;
@@ -14,6 +12,9 @@ import org.apache.calcite.schema.impl.AbstractTable;
 import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.util.Pair;
 import org.apache.calcite.util.Source;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomTable extends AbstractTable implements ScannableTable {
 

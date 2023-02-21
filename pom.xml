@@ -12,11 +12,11 @@
     <name>calcite-demo</name>
 
     <modules>
-        <module>helloworld</module>
         <module>sqlparser</module>
         <module>calcite-adapter</module>
         <module>calcite-adapter/adapter-csv</module>
         <module>calcite-execute</module>
+        <module>calcite-adapter/adapter-helloworld</module>
     </modules>
 
     <properties>

@@ -1,9 +1,10 @@
 package com.github.pioneeryi;
 
-import java.util.Map;
 import org.apache.calcite.schema.Schema;
 import org.apache.calcite.schema.SchemaFactory;
 import org.apache.calcite.schema.SchemaPlus;
+
+import java.util.Map;
 
 public class CustomSchemaFactory implements SchemaFactory {
 

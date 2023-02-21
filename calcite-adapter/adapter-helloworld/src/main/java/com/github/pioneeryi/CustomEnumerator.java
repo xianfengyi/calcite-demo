@@ -1,9 +1,10 @@
 package com.github.pioneeryi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import org.apache.calcite.linq4j.Enumerator;
 import org.apache.calcite.util.Source;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class CustomEnumerator<E> implements Enumerator<E> {
 

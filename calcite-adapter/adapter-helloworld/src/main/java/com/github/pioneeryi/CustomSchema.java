@@ -1,12 +1,13 @@
 package com.github.pioneeryi;
 
 import com.google.common.collect.ImmutableMap;
-import java.net.URL;
-import java.util.Map;
 import org.apache.calcite.schema.Table;
 import org.apache.calcite.schema.impl.AbstractSchema;
 import org.apache.calcite.util.Source;
 import org.apache.calcite.util.Sources;
+
+import java.net.URL;
+import java.util.Map;
 
 public class CustomSchema extends AbstractSchema {
 
