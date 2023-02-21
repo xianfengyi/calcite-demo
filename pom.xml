@@ -19,7 +19,6 @@
         <module>calcite-parser/fmpp-demo</module>
         <module>calcite-parser/javacc-demo</module>
         <module>calcite-parser/parser-demo</module>
-        <module>calcite-parser/custom-parser</module>
         <module>calcite-parser/custom-demo</module>
     </modules>
 
