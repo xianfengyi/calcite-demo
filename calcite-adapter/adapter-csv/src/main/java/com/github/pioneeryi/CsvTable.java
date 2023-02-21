@@ -1,12 +1,13 @@
 package com.github.pioneeryi;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeFactory;
 import org.apache.calcite.schema.impl.AbstractTable;
 import org.apache.calcite.util.Pair;
 import org.apache.calcite.util.Source;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CsvTable extends AbstractTable {
 

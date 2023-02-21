@@ -3,7 +3,6 @@ package com.github.pioneeryi.table;
 import com.github.pioneeryi.CsvEnumerator;
 import com.github.pioneeryi.CsvTable;
 import com.github.pioneeryi.converter.ArrayRowConverter;
-import java.util.List;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.linq4j.AbstractEnumerable;
@@ -13,6 +12,8 @@ import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.schema.ScannableTable;
 import org.apache.calcite.util.ImmutableIntList;
 import org.apache.calcite.util.Source;
+
+import java.util.List;
 
 public class CsvScannableTable extends CsvTable implements ScannableTable {
 

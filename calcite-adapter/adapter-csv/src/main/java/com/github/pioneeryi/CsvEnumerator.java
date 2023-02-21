@@ -4,12 +4,13 @@ import com.github.pioneeryi.converter.ArrayRowConverter;
 import com.github.pioneeryi.converter.RowConverter;
 import com.github.pioneeryi.converter.SingleColumnRowConverter;
 import com.opencsv.CSVReader;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.calcite.linq4j.Enumerator;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.util.Source;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CsvEnumerator<E> implements Enumerator<E> {
 

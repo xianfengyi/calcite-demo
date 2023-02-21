@@ -3,7 +3,6 @@ package com.github.pioneeryi.table;
 import com.github.pioneeryi.CsvEnumerator;
 import com.github.pioneeryi.CsvTable;
 import com.github.pioneeryi.converter.ArrayRowConverter;
-import java.util.List;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.linq4j.AbstractEnumerable;
@@ -18,6 +17,8 @@ import org.apache.calcite.schema.FilterableTable;
 import org.apache.calcite.sql.SqlKind;
 import org.apache.calcite.util.ImmutableIntList;
 import org.apache.calcite.util.Source;
+
+import java.util.List;
 
 public class CsvFilterableTable extends CsvTable implements FilterableTable {
 

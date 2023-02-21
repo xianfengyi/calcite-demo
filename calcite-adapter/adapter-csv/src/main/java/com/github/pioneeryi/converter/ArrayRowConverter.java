@@ -1,9 +1,10 @@
 package com.github.pioneeryi.converter;
 
-import java.util.List;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.util.ImmutableIntList;
 import org.apache.calcite.util.ImmutableNullableList;
+
+import java.util.List;
 
 public class ArrayRowConverter extends RowConverter<Object[]> {
 

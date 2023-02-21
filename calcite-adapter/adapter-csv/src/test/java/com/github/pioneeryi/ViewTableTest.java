@@ -1,13 +1,14 @@
 package com.github.pioneeryi;
 
 import com.github.pioneeryi.util.ResultSetUtil;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class ViewTableTest {
 

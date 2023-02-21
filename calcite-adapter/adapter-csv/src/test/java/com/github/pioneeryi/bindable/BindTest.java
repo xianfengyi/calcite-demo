@@ -1,7 +1,6 @@
 package com.github.pioneeryi.bindable;
 
 import com.github.pioneeryi.CsvSchema;
-import com.github.pioneeryi.CsvTableFactory;
 import com.github.pioneeryi.ScannableTableTest;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
@@ -14,20 +13,15 @@ import org.apache.calcite.runtime.ArrayBindable;
 import org.apache.calcite.runtime.Bindable;
 import org.apache.calcite.runtime.Typed;
 import org.apache.calcite.runtime.Utilities;
-import org.apache.calcite.util.Source;
-import org.apache.calcite.util.Sources;
 import org.codehaus.commons.compiler.CompilerFactoryFactory;
 import org.codehaus.commons.compiler.IClassBodyEvaluator;
 import org.codehaus.commons.compiler.ICompilerFactory;
 import org.junit.Test;
 
 import java.io.StringReader;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 public class BindTest {

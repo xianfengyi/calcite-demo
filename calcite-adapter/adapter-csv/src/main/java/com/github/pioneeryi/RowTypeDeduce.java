@@ -1,13 +1,14 @@
 package com.github.pioneeryi;
 
 import com.opencsv.CSVReader;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rel.type.RelDataTypeFactory;
 import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.util.Source;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RowTypeDeduce {
 

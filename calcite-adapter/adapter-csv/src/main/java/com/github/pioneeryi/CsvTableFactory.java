@@ -1,13 +1,14 @@
 package com.github.pioneeryi;
 
 import com.github.pioneeryi.table.CsvScannableTable;
-import java.net.URL;
-import java.util.Map;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.schema.SchemaPlus;
 import org.apache.calcite.schema.TableFactory;
 import org.apache.calcite.util.Source;
 import org.apache.calcite.util.Sources;
+
+import java.net.URL;
+import java.util.Map;
 
 public class CsvTableFactory implements TableFactory<CsvTable> {
 
