@@ -1,10 +1,8 @@
 package com.github.pioneeryi;
 
 import org.apache.calcite.DataContext;
-import org.apache.calcite.adapter.enumerable.EnumerableConvention;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
 import org.apache.calcite.adapter.enumerable.EnumerableRel;
-import org.apache.calcite.adapter.enumerable.EnumerableRules;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.jdbc.CalciteSchema;
@@ -34,7 +32,6 @@ import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.tools.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -69,10 +66,11 @@ public class Main {
         System.out.println(RelOptUtil.toString(relRoot.rel, ALL_ATTRIBUTES));
 
         // 对查询进行优化
-        //RelNode optimizedRelNode = optimize(relRoot.rel);
+        RelNode optimizedRelNode = optimize(relRoot.rel);
+        System.out.println(RelOptUtil.toString(optimizedRelNode, ALL_ATTRIBUTES));
 
         // 执行
-        execute(relRoot.rel);
+        //execute(relRoot.rel);
     }
 
     private static SqlNode sqlParse(String sql) {
@@ -103,21 +101,12 @@ public class Main {
 
     private static RelNode optimize(RelNode relNode) {
         HepProgramBuilder builder = new HepProgramBuilder();
-        HepPlanner hepPlanner = new HepPlanner(builder.build());
+        // 添加优化规则
+        builder.addRuleInstance(CoreRules.FILTER_INTO_JOIN);
 
-        // 优化规则
-        RuleSet rules = RuleSets.ofList(CoreRules.FILTER_TO_CALC, CoreRules.PROJECT_TO_CALC,
-                CoreRules.FILTER_CALC_MERGE, CoreRules.PROJECT_CALC_MERGE, CoreRules.FILTER_INTO_JOIN,     //
-                // 过滤谓词下推到Join之前
-                EnumerableRules.ENUMERABLE_TABLE_SCAN_RULE, EnumerableRules.ENUMERABLE_PROJECT_TO_CALC_RULE,
-                EnumerableRules.ENUMERABLE_FILTER_TO_CALC_RULE, EnumerableRules.ENUMERABLE_JOIN_RULE,
-                EnumerableRules.ENUMERABLE_SORT_RULE, EnumerableRules.ENUMERABLE_CALC_RULE,
-                EnumerableRules.ENUMERABLE_AGGREGATE_RULE);
-        Program program = Programs.of(RuleSets.ofList(rules));
-        RelNode optimizerRelTree = program.run(hepPlanner, relNode,
-                relNode.getTraitSet().plus(EnumerableConvention.INSTANCE), Collections.emptyList(),
-                Collections.emptyList());
-        return optimizerRelTree;
+        HepPlanner hepPlanner = new HepPlanner(builder.build());
+        hepPlanner.setRoot(relNode);
+        return hepPlanner.findBestExp();
     }
 
     private static void execute(RelNode optimizerRelTree) {
