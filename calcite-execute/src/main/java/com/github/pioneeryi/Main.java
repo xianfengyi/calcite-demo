@@ -1,3 +1,5 @@
+package com.github.pioneeryi;
+
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.enumerable.EnumerableConvention;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
@@ -5,8 +7,6 @@ import org.apache.calcite.adapter.enumerable.EnumerableRel;
 import org.apache.calcite.adapter.enumerable.EnumerableRules;
 import org.apache.calcite.adapter.java.JavaTypeFactory;
 import org.apache.calcite.avatica.util.Casing;
-import org.apache.calcite.avatica.util.Quoting;
-import org.apache.calcite.config.CalciteConnectionConfig;
 import org.apache.calcite.jdbc.CalciteSchema;
 import org.apache.calcite.jdbc.JavaTypeFactoryImpl;
 import org.apache.calcite.linq4j.Enumerable;
@@ -28,11 +28,9 @@ import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
 import org.apache.calcite.sql.parser.SqlParseException;
 import org.apache.calcite.sql.parser.SqlParser;
-import org.apache.calcite.sql.parser.impl.SqlParserImpl;
 import org.apache.calcite.sql.type.BasicSqlType;
 import org.apache.calcite.sql.type.SqlTypeFactoryImpl;
 import org.apache.calcite.sql.type.SqlTypeName;
-import org.apache.calcite.sql.validate.SqlConformanceEnum;
 import org.apache.calcite.tools.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -42,12 +40,11 @@ import java.util.Map;
 
 import static org.apache.calcite.sql.SqlExplainLevel.ALL_ATTRIBUTES;
 
-public class Application {
-
+public class Main {
     private static SqlParser.Config sqlParserConfig = SqlParser.config()
-                    .withCaseSensitive(false)
-                    .withQuotedCasing(Casing.TO_UPPER)
-                    .withUnquotedCasing(Casing.TO_UPPER);
+            .withCaseSensitive(false)
+            .withQuotedCasing(Casing.TO_UPPER)
+            .withUnquotedCasing(Casing.TO_UPPER);
 
     private static SqlTypeFactoryImpl typeFactory = new SqlTypeFactoryImpl(RelDataTypeSystem.DEFAULT);
     private static RelDataTypeSystem typeSystem = RelDataTypeSystem.DEFAULT;

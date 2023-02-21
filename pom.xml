@@ -13,10 +13,10 @@
 
     <modules>
         <module>helloworld</module>
-        <module>demo</module>
         <module>sqlparser</module>
         <module>calcite-adapter</module>
         <module>calcite-adapter/adapter-csv</module>
+        <module>calcite-execute</module>
     </modules>
 
     <properties>
