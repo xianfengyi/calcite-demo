@@ -18,6 +18,8 @@
         <module>calcite-execute</module>
         <module>calcite-adapter/adapter-helloworld</module>
         <module>calcite-optimize</module>
+        <module>calcite-adapter/adapter-jdbc</module>
+        <module>calcite-common</module>
     </modules>
 
     <properties>
