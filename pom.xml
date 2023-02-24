@@ -20,6 +20,7 @@
         <module>calcite-optimize</module>
         <module>calcite-adapter/adapter-jdbc</module>
         <module>calcite-common</module>
+        <module>calcite-linq4j</module>
     </modules>
 
     <properties>

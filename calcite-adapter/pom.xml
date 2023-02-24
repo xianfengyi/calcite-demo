@@ -10,11 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>calcite-adapter</artifactId>
+    <packaging>pom</packaging>
 
-    <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <modules>
+        <module>adapter-helloworld</module>
+        <module>adapter-csv</module>
+        <module>adapter-jdbc</module>
+    </modules>
 
 </project>
