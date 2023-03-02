@@ -3,9 +3,7 @@ package com.github.pioneeryi.bindable;
 import com.github.pioneeryi.EnumerableUtil;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
-import org.apache.calcite.config.CalciteSystemProperty;
 import org.apache.calcite.linq4j.Enumerable;
-import org.apache.calcite.linq4j.Enumerator;
 import org.apache.calcite.runtime.ArrayBindable;
 import org.apache.calcite.runtime.Bindable;
 import org.apache.calcite.runtime.Typed;
@@ -17,7 +15,6 @@ import org.codehaus.commons.compiler.ICompilerFactory;
 import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Arrays;
 import java.util.Properties;
 
 public class BindableExecute {
@@ -66,26 +63,19 @@ public class BindableExecute {
 
     public static void main(String[] args) throws Exception {
         DataContext dataContext = getDataContext();
-        Bindable bindable = getBindable();
+        Bindable bindable = getBindable(2);
         Enumerable enumerable = bindable.bind(dataContext);
         EnumerableUtil.printEnumerator(enumerable.enumerator());
     }
 
-    private static Bindable getBindable() throws Exception {
-        int fieldCount = 3;
+    private static Bindable getBindable(int fieldCount) throws Exception {
         ICompilerFactory compilerFactory = CompilerFactoryFactory.getDefaultCompilerFactory();
         final IClassBodyEvaluator cbe = compilerFactory.newClassBodyEvaluator();
         cbe.setClassName("Baz");
         cbe.setExtendedClass(Utilities.class);
-        cbe.setImplementedInterfaces(
-                fieldCount == 1
-                        ? new Class[]{Bindable.class, Typed.class}
-                        : new Class[]{ArrayBindable.class});
+        cbe.setImplementedInterfaces(fieldCount == 1 ? new Class[]{Bindable.class, Typed.class}
+                : new Class[]{ArrayBindable.class});
         cbe.setParentClassLoader(EnumerableInterpretable.class.getClassLoader());
-        if (CalciteSystemProperty.DEBUG.value()) {
-            // Add line numbers to the generated janino class
-            cbe.setDebuggingInformation(true, true, true);
-        }
         return (Bindable) cbe.createInstance(new StringReader(executeExpression));
     }
 
