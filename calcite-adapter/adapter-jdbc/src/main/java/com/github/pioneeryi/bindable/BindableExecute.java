@@ -3,11 +3,13 @@ package com.github.pioneeryi.bindable;
 import com.github.pioneeryi.EnumerableUtil;
 import org.apache.calcite.DataContext;
 import org.apache.calcite.adapter.enumerable.EnumerableInterpretable;
+import org.apache.calcite.jdbc.CalciteConnection;
 import org.apache.calcite.linq4j.Enumerable;
 import org.apache.calcite.runtime.ArrayBindable;
 import org.apache.calcite.runtime.Bindable;
 import org.apache.calcite.runtime.Typed;
 import org.apache.calcite.runtime.Utilities;
+import org.apache.calcite.schema.Schemas;
 import org.codehaus.commons.compiler.CompilerFactoryFactory;
 import org.codehaus.commons.compiler.IClassBodyEvaluator;
 import org.codehaus.commons.compiler.ICompilerFactory;
@@ -68,6 +70,11 @@ public class BindableExecute {
         EnumerableUtil.printEnumerator(enumerable.enumerator());
     }
 
+    private static DataContext getDataContext() throws Exception {
+        CalciteConnection calciteConnection = (CalciteConnection) getConnection();
+        return Schemas.createDataContext(calciteConnection, calciteConnection.getRootSchema());
+    }
+
     private static Bindable getBindable(int fieldCount) throws Exception {
         ICompilerFactory compilerFactory = CompilerFactoryFactory.getDefaultCompilerFactory();
         final IClassBodyEvaluator cbe = compilerFactory.newClassBodyEvaluator();
@@ -79,12 +86,7 @@ public class BindableExecute {
         return (Bindable) cbe.createInstance(new StringReader(executeExpression));
     }
 
-    private static DataContext getDataContext() throws Exception {
-        // TODO(pioneeryi): Add DataContext
-        return null;
-    }
-
-    public static Connection getConnection() throws Exception {
+    private static Connection getConnection() throws Exception {
         String path = BindableExecute.class.getResource("/single-datasource-model.json").toString();
         Properties info = new Properties();
         info.setProperty("caseSensitive", "false");
