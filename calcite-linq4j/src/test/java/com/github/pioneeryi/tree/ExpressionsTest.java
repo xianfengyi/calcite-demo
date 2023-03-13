@@ -212,7 +212,8 @@ public class ExpressionsTest {
                 "  }\n" +
                 "  ;\n" +
                 "}\n";
-        Assert.assertEquals(expected, builder0.toBlock().toString());
+        String expr = builder0.toBlock().toString();
+        Assert.assertEquals(expected, expr);
 
 
         final List<MemberDeclaration> memberDeclarations = new ArrayList<>();
@@ -238,9 +239,40 @@ public class ExpressionsTest {
                 Collections.singletonList(Bindable.class),
                 memberDeclarations);
 
-        String s = Expressions.toString(classDeclaration.memberDeclarations, "\n", false);
+        expr = Expressions.toString(classDeclaration.memberDeclarations, "\n", false);
 
-        System.out.println(s);
+        expected = "public org.apache.calcite.linq4j.Enumerable bind(final org.apache.calcite.DataContext root) {\n" +
+                "  final org.apache.calcite.linq4j.function.Function1 rowBuilderFactory = new org.apache.calcite" +
+                ".linq4j.function.Function1() {\n" +
+                "    public org.apache.calcite.linq4j.function.Function0 apply(final java.sql.ResultSet resultSet) " +
+                "{\n" +
+                "      return new org.apache.calcite.linq4j.function.Function0() {\n" +
+                "          public Object apply() {\n" +
+                "            try {\n" +
+                "              return new Object[2];\n" +
+                "            } catch (java.sql.SQLException e) {\n" +
+                "              throw new RuntimeException(\n" +
+                "                e);\n" +
+                "            }\n" +
+                "          }\n" +
+                "        }\n" +
+                "      ;\n" +
+                "    }\n" +
+                "    public Object apply(final Object resultSet) {\n" +
+                "      return apply(\n" +
+                "        (java.sql.ResultSet) resultSet);\n" +
+                "    }\n" +
+                "  }\n" +
+                "  ;\n" +
+                "}\n" +
+                "\n" +
+                "\n" +
+                "public Class getElementType() {\n" +
+                "  return org.apache.calcite.rel.type.RelDataTypeSystem$1@61d47554;\n" +
+                "}\n" +
+                "\n" +
+                "\n";
+        Assert.assertEquals(expected, expr);
     }
 
     static class Identity<I> implements Function<I, I> {
