@@ -35,6 +35,8 @@
 
         <calcite.version>1.32.0</calcite.version>
         <avatica.version>1.22.0</avatica.version>
+
+        <logback.version>1.2.3</logback.version>
     </properties>
 
     <dependencies>
@@ -74,6 +76,18 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>4.4</version>
+        </dependency>
+
+        <!--log-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
 
         <dependency>
