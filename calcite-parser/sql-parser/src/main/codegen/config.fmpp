@@ -51,6 +51,8 @@ data: {
     # List of new keywords. Example: "DATABASES", "TABLES". If the keyword is
     # not a reserved keyword, add it to the 'nonReservedKeywords' section.
     keywords: [
+        "IF",
+        "MATERIALIZED"
     ]
 
     # List of keywords from "keywords" section that are not reserved.
@@ -398,6 +400,7 @@ data: {
     # Return type of method implementation should be 'SqlNode'.
     # Example: "SqlShowDatabases()", "SqlShowTables()".
     statementParserMethods: [
+        "SqlCreateMaterializedView()"
     ]
 
     # List of methods for parsing custom literals.
@@ -452,6 +455,7 @@ data: {
     # "dataTypeParserMethods".
     # Example: "parserImpls.ftl".
     implementationFiles: [
+        "parserImpls.ftl"
     ]
 
     includePosixOperators: false
