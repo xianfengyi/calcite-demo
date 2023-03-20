@@ -17,7 +17,7 @@
         <module>calcite-parser/fmpp-demo</module>
         <module>calcite-parser/javacc-demo</module>
         <module>calcite-parser/parser-demo</module>
-        <module>calcite-parser/custom-demo</module>
+        <module>calcite-parser/sql-parser</module>
         <module>calcite-adapter</module>
         <module>calcite-adapter/adapter-csv</module>
         <module>calcite-execute</module>
