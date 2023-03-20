@@ -18,4 +18,97 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javacc-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>javacc</id>
+                        <goals>
+                            <goal>javacc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.build.directory}/generated-sources/fmpp</sourceDirectory>
+                            <includes>
+                                <include>**/Parser.jj</include>
+                            </includes>
+                            <lookAhead>2</lookAhead>
+                            <isStatic>false</isStatic>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>javacc-test</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>javacc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.build.directory}/generated-test-sources/fmpp</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-test-sources/javacc</outputDirectory>
+                            <includes>
+                                <include>**/Parser.jj</include>
+                            </includes>
+                            <lookAhead>2</lookAhead>
+                            <isStatic>false</isStatic>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <configuration>
+                    <!--配置文件地址-->
+                    <cfgFile>src/main/codegen/config.fmpp</cfgFile>
+                    <!--文件输出目录-->
+                    <outputDirectory>target/generated-sources/fmpp/</outputDirectory>
+                    <!--文件模板存放目录-->
+                    <templateDirectory>src/main/codegen/templates</templateDirectory>
+                </configuration>
+                <groupId>com.googlecode.fmpp-maven-plugin</groupId>
+                <artifactId>fmpp-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.freemarker</groupId>
+                        <artifactId>freemarker</artifactId>
+                        <version>2.3.28</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.fmpp</groupId>
+                        <artifactId>fmpp</artifactId>
+                        <version>0.9.16</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.freemarker</groupId>
+                                <artifactId>freemarker</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+
+    </build>
+
 </project>
